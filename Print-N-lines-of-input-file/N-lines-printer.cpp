@@ -3,7 +3,15 @@
 #include <string>
 #include <stack>
 /*
+Author: Luis Romero
+Name: N-lines-printer-bottom-to-top
+
+Description:
 Program that reads last N lines from a text file.
+Takes the name of the file as console argument argv[1]
+Then parses/reads the file and stores line by line into a stack string structure
+that allows to read bottom to top of document.
+
 */
 
 using namespace std;
@@ -22,23 +30,25 @@ int main(int argc, char *argv[]){
 		cerr << "Cannot open the file." << endl;
 	}
 
-	while (!in_stream.eof()){
-		in_stream >> line;
+	while (in_stream.good()){ //same as (!in_stream.eof())
+		//in_stream >> line;
+		getline(in_stream, line); //gets the whole line of text instead of -- ' in_stream >> line ' that copies string by string 
 		lines.push(line);
-		//cout << line;
+		
 	}
-	cout << "done adding to stack" << endl;
+	
 	cout << "Number of lines available to print: " << lines.size()<<endl;
-	cout << "How many lines from end of begining you want to print to screen: ";
+	cout << "How many lines from bottom to top you want to print to screen? : ";
 	cin >> n;
 
-	cout <<endl<< "printing N: " << n << "lines from file";
+	cout <<endl<< "Printing N: " << n << "lines from file"<<endl;
 	
 	while (n>0 && !lines.empty())
 	{
 		line = lines.top();
 		lines.pop();
 		cout << line << endl;
+		n--;
 	}
 
 	cout << endl << endl;
